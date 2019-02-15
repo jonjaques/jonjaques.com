@@ -5,28 +5,46 @@ jobs:
     docker:
       - image: circleci/node:lts
     steps:
+      - run:
+          name: Update apt-get
+          command: sudo apt-get -y update
+
+      - run:
+          name: Install jq from apt-get
+          command: sudo apt-get -y install jq
+
+      - run:
+          name: Download latest hugo
+          command: wget https://api.github.com/repos/gohugoio/hugo/releases/latest -O - | jq -r '.assets[] | select(.name | index("Linux-64bit.tar.gz")) | .browser_download_url' | wget -i -
+
+      - run:
+          name: Extract hugo
+          command: sudo tar -z -f hugo_extended*.tar.gz --directory /usr/bin -x hugo
+
+      - run:
+          name: Make hugo executable
+          command: sudo chmod +x /usr/bin/hugo
+
       - checkout
+
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
-      - run: yarn install
+
+      - run:
+          name: Install app dependencies
+          command: yarn install
+
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      # Install `jq`
-      - run: sudo apt-get -y update
-      - run: sudo apt-get -y install jq
+      - run:
+          name: Build app src
+          command: yarn webpack --mode production
 
-      # Download latest Hugo
-      - run: wget https://api.github.com/repos/gohugoio/hugo/releases/latest -O - | jq -r '.assets[] | select(.name | index("Linux-64bit.tar.gz")) | .browser_download_url' | wget -i -
-      - run: sudo tar -z -f hugo_extended*.tar.gz --directory /usr/bin -x hugo
-      - run: sudo chmod +x /usr/bin/hugo
-
-      # Build JS
-      - run: yarn webpack --mode production
-
-      # Build Site
-      - run: hugo
+      - run:
+          name: Build site
+          command: hugo
