@@ -48,6 +48,10 @@ jobs:
             yarn webpack --mode production
             hugo
 
+      - add_ssh_keys:
+          fingerprints:
+            - "89:1f:38:88:90:8c:e7:54:8b:ed:97:e8:d2:36:99:9b"
+
       - run:
           name: Deploy
           command: |
