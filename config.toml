@@ -1,4 +1,4 @@
-baseURL = "https://jonjaques.com/"
+baseURL = "https://jonjaques.github.io/jonjaques.com/"
 theme = "site"
 enableemoji = true
 title = "Jon Jaques Personal Site"
