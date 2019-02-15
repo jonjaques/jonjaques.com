@@ -50,9 +50,9 @@ jobs:
 
       - add_ssh_keys:
           fingerprints:
-            - "89:1f:38:88:90:8c:e7:54:8b:ed:97:e8:d2:36:99:9b"
+            - "d4:c7:c8:20:42:70:77:dd:af:ce:67:fd:dd:ec:26:46"
 
-      - run:
+      - deploy:
           name: Deploy
           command: |
             if [ $CIRCLE_BRANCH == $SOURCE_BRANCH ]; then
