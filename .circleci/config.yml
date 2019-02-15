@@ -1,33 +1,30 @@
 version: 2
 jobs:
   build:
+    branches:
+      only: master
+
     working_directory: ~/repo
+
     docker:
       - image: circleci/node:lts
+
+    environment:
+      - GH_EMAIL: ci@jonjaques.com
+      - GH_USER: CI Bot
+      - SOURCE_BRANCH: master
+      - TARGET_BRANCH: gh-pages
+
     steps:
       - run:
-          name: Update apt-get
-          command: sudo apt-get -y update
-
-      - run:
-          name: Install jq from apt-get
-          command: sudo apt-get -y install jq
-
-      - run:
-          name: Download latest hugo
-          command: wget https://api.github.com/repos/gohugoio/hugo/releases/latest -O - | jq -r '.assets[] | select(.name | index("Linux-64bit.tar.gz")) | .browser_download_url' | wget -i -
-
-      - run:
-          name: Extract hugo
-          command: sudo tar -z -f hugo_extended*.tar.gz --directory /usr/bin -x hugo
-
-      - run:
-          name: Make hugo executable
-          command: sudo chmod +x /usr/bin/hugo
-
-      - run:
-          name: Clean working directory
-          command: rm -rf hugo*
+          name: Install hugo
+          command: |
+            sudo apt-get -y update
+            sudo apt-get -y install jq
+            wget https://api.github.com/repos/gohugoio/hugo/releases/latest -O - | jq -r '.assets[] | select(.name | index("Linux-64bit.tar.gz")) | .browser_download_url' | wget -i -
+            sudo tar -z -f hugo_extended*.tar.gz --directory /usr/bin -x hugo
+            sudo chmod +x /usr/bin/hugo
+            rm -rf hugo*
 
       - checkout
 
@@ -46,9 +43,32 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run:
-          name: Build app src
-          command: yarn webpack --mode production
+          name: Build site
+          command: |
+            yarn webpack --mode production
+            hugo
 
       - run:
-          name: Build site
-          command: hugo
+          name: Deploy
+          command: |
+            if [ $CIRCLE_BRANCH == $SOURCE_BRANCH ]; then
+              git config --global user.email $GH_EMAIL
+              git config --global user.name $GH_USER
+
+              git clone $CIRCLE_REPOSITORY_URL out
+
+              cd out
+              git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
+              git rm -rf .
+              cd ..
+
+              cp -a build/. out/.
+
+              mkdir -p out/.circleci && cp -a .circleci/. out/.circleci/.
+              cd out
+
+              git add -A
+              git commit -m "Automated deployment to GitHub Pages: ${CIRCLE_SHA1}" --allow-empty
+
+              git push origin $TARGET_BRANCH
+            fi
