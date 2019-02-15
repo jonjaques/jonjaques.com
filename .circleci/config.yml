@@ -22,8 +22,8 @@ jobs:
 
       # Download latest Hugo
       - run: wget https://api.github.com/repos/gohugoio/hugo/releases/latest -O - | jq -r '.assets[] | select(.name | index("Linux-64bit.tar.gz")) | .browser_download_url' | wget -i -
-      - run: tar -xzf hugo_extended*.tar.gz --directory /usr/bin
-      - run: chmod +x /usr/bin/hugo
+      - run: sudo tar -xzf hugo_extended*.tar.gz hugo --directory /usr/bin
+      - run: sudo chmod +x /usr/bin/hugo
 
       # Build JS
       - run: yarn webpack --mode production
