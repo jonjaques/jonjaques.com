@@ -1,0 +1,59 @@
+html, body, #content {
+  height: 100%;
+}
+
+body {
+  @include vert-linear-gradient($body-bg, lighten($body-bg, 12));
+  background-attachment: fixed;
+}
+
+.index-hero {
+  height: 100vh;
+  min-height: 100vh;
+
+  .index-hero__inner {
+    text-align: center;
+    margin-top: -3.5rem;
+  }
+
+  h1 {
+    font-size: 3.2rem;
+
+    @include media-breakpoint-up(md) {
+      font-size: 4.4rem;
+    }
+  }
+
+  img {
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    margin-bottom: 1.4rem;
+    box-shadow:
+      0 0 0 5px lighten($body-bg, 60),
+      0 15px 25px 0 rgba(0,0,0,0.0)
+    ;
+    transition: all 0.12s ease;
+
+    &:hover {
+      transform: scale(1.05);
+      box-shadow:
+        0 0 0 5px lighten($body-bg, 60),
+        0 15px 25px 0 rgba(0,0,0,0.4)
+      ;
+    }
+  }
+
+  .nav-link {
+    color: lighten($body-bg, 50);
+    font-size: 1.5rem;
+    transition: transform 0.075s ease;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+    &:active {
+      transform: scale(0.9);
+    }
+  }
+}

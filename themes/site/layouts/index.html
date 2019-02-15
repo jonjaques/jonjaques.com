@@ -1,0 +1,37 @@
+{{ define "main" }}
+<div class="index-hero d-flex flex-column justify-content-center align-items-center">
+  <div class="index-hero__inner">
+    <img
+      width="80"
+      height="80"
+      src="https://www.gravatar.com/avatar/{{ .Site.Params.AuthorEmailHash }}.jpg"
+    />
+
+    <h1>{{ .Site.Params.AuthorName }}</h1>
+
+    <ul class="nav justify-content-center">
+      <li class="nav-item">
+        <a class="nav-link" href="mailto:{{ .Site.Params.AuthorEmail }}">
+          <i class="fas fa-at"></i>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" target="_blank" href="https://twitter.com/{{ .Site.Params.AuthorTwitter }}">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" target="_blank" href="https://github.com/{{ .Site.Params.AuthorGithub }}">
+          <i class="fab fa-github"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" target="_blank" href="https://gitlab.com/{{ .Site.Params.AuthorGitlab }}">
+          <i class="fab fa-gitlab"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+{{ end }}
