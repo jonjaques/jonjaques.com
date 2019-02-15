@@ -25,6 +25,10 @@ jobs:
           name: Make hugo executable
           command: sudo chmod +x /usr/bin/hugo
 
+      - run:
+          name: Clean working directory
+          command: rm -rf hugo*
+
       - checkout
 
       - restore_cache:
