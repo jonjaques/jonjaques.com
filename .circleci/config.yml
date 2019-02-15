@@ -16,10 +16,17 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
+      # Install `jq`
       - run: apt-get -y update
       - run: apt-get -y install jq
-      - run: wget https://api.github.com/repos/gohugoio/hugo/releases/latest -O - run: | jq -r '.assets[] | select(.name | index("Linux-64bit.tar.gz")) | .browser_download_url' | wget -i -
+
+      # Download latest Hugo
+      - run: wget https://api.github.com/repos/gohugoio/hugo/releases/latest -O - | jq -r '.assets[] | select(.name | index("Linux-64bit.tar.gz")) | .browser_download_url' | wget -i -
       - run: tar -xzf hugo_extended*.tar.gz --directory /usr/bin
       - run: chmod +x /usr/bin/hugo
+
+      # Build JS
       - run: yarn webpack --mode production
+
+      # Build Site
       - run: hugo
