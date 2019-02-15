@@ -22,7 +22,7 @@ jobs:
 
       # Download latest Hugo
       - run: wget https://api.github.com/repos/gohugoio/hugo/releases/latest -O - | jq -r '.assets[] | select(.name | index("Linux-64bit.tar.gz")) | .browser_download_url' | wget -i -
-      - run: sudo tar -xzf hugo_extended*.tar.gz hugo --directory /usr/bin
+      - run: sudo tar -z -f hugo_extended*.tar.gz --directory /usr/bin -x hugo
       - run: sudo chmod +x /usr/bin/hugo
 
       # Build JS
