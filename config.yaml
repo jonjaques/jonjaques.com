@@ -1,9 +1,10 @@
 
 baseURL: https://jonjaques.com/
-theme: "site"
+theme: site
 enableemoji: true
-title: "Jon Jaques"
+title: Jon Jaques
 minify: true
+googleAnalytics: UA-134663229-1
 params:
   ThemeColor: '#221f33'
   Description: Experienced, result-oriented professional versed JavaScript web applications and common software design patterns.

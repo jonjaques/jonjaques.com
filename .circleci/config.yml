@@ -45,8 +45,7 @@ jobs:
       - run:
           name: Build site
           command: |
-            yarn webpack --mode production
-            hugo
+            yarn build
 
       - add_ssh_keys:
           fingerprints:
