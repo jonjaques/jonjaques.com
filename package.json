@@ -4,10 +4,11 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "yarn build:js && yarn build:site",
+    "build": "yarn build:js && yarn build:site && yarn build:site:cname",
     "build:js": "webpack --mode production",
     "build:js:dev": "webpack --mode development",
     "build:site": "hugo --minify --environment production",
+    "build:site:cname": "node cname",
     "clean": "rimraf public themes/sites/assets/js",
     "dev": "concurrently -n site,js \"yarn dev:js\" \"yarn dev:site\"",
     "dev:js": "webpack --watch --mode development",
