@@ -1,7 +1,13 @@
 <head>
 
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>{{ .Site.Title }}</title>
+  <meta name="description" content="{{ .Site.Params.Description }}" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="theme-color" content="{{ .Site.Params.ThemeColor }}" />
+
+  {{ $manifest := resources.Get "js/manifest.json" }}
+  <link rel="manifest" href="{{ $manifest.Permalink }}">
 
   <!-- async css polyfill -->
   <script>
@@ -9,16 +15,16 @@
   </script>
 
   <!-- custom fonts -->
-  {{/*  <link rel="preload"
+  <link rel="preload"
     href="https://use.typekit.net/wpl4tay.css"
     as="style"
     onload="this.rel='stylesheet'" />
-  <noscript>  */}}
+  <noscript>
     <link rel="stylesheet" href="https://use.typekit.net/wpl4tay.css">
-  {{/*  </noscript>  */}}
+  </noscript>
 
   <!-- app css -->
-  {{ $options := (dict "includePaths" (slice "node_modules/bootstrap/scss")) }}
+  {{ $options := (dict "outputStyle" "compressed" "enableSourceMap" true "includePaths" (slice "node_modules/bootstrap/scss")) }}
   {{ $style := resources.Get "scss/main.scss" | resources.ToCSS $options }}
   <link rel="stylesheet" href="{{ $style.Permalink }}">
 

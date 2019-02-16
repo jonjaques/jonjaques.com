@@ -4,15 +4,14 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "webpack --mode production && hugo",
+    "build": "yarn build:js && yarn build:site",
+    "build:js": "webpack --mode production",
+    "build:js:dev": "webpack --mode development",
+    "build:site": "hugo --minify",
     "clean": "rimraf public themes/sites/assets/js",
-    "dev:bundle": "webpack --watch --mode development",
-    "dev:remote": "yarn dev:server --bind 0.0.0.0 --baseURL 192.168.1.133 --appendPort",
-    "dev:server": "hugo server",
-    "dev": "concurrently -n server,webpack \"yarn dev:server\" \"yarn dev:bundle\""
-  },
-  "devDependencies": {
-    "rimraf": "^2.6.3"
+    "dev": "concurrently -n site,js \"yarn dev:js\" \"yarn dev:site\"",
+    "dev:js": "webpack --watch --mode development",
+    "dev:site": "hugo server"
   },
   "dependencies": {
     "@babel/core": "^7.2.2",
@@ -22,7 +21,10 @@
     "concurrently": "^4.1.0",
     "jquery": "^3.3.1",
     "popper.js": "^1.14.7",
+    "rimraf": "^2.6.3",
     "webpack": "^4.29.3",
-    "webpack-cli": "^3.2.3"
+    "webpack-cli": "^3.2.3",
+    "webpack-pwa-manifest": "^4.0.0",
+    "yaml": "^1.3.2"
   }
 }

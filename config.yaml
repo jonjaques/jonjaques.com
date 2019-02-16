@@ -1,0 +1,15 @@
+
+baseURL: https://jonjaques.com/
+theme: "site"
+enableemoji: true
+title: "Jon Jaques"
+minify: true
+params:
+  ThemeColor: '#221f33'
+  Description: Experienced, result-oriented professional versed JavaScript web applications and common software design patterns.
+  AuthorName: Jon Jaques
+  AuthorEmail: me@jonjaques.com
+  AuthorEmailHash: 4ba52f2fda7001cae96fcbbdf7a84331
+  AuthorTwitter: jaquers
+  AuthorGithub: jonjaques
+  AuthorGitlab: jonjaques

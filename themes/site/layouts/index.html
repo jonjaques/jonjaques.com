@@ -5,6 +5,7 @@
       width="80"
       height="80"
       src="https://www.gravatar.com/avatar/{{ .Site.Params.AuthorEmailHash }}.jpg"
+      alt="Jon Jaques"
     />
 
     <h1>{{ .Site.Params.AuthorName }}</h1>
@@ -12,22 +13,26 @@
     <ul class="nav justify-content-center">
       <li class="nav-item">
         <a class="nav-link" href="mailto:{{ .Site.Params.AuthorEmail }}">
+          <span class="sr-only sr-only-focusable">Email</span>
           <i class="fas fa-at"></i>
         </a>
       </li>
 
       <li class="nav-item">
         <a class="nav-link" target="_blank" href="https://twitter.com/{{ .Site.Params.AuthorTwitter }}">
+          <span class="sr-only sr-only-focusable">Twitter</span>
           <i class="fab fa-twitter"></i>
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" target="_blank" href="https://github.com/{{ .Site.Params.AuthorGithub }}">
+          <span class="sr-only sr-only-focusable">Github</span>
           <i class="fab fa-github"></i>
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" target="_blank" href="https://gitlab.com/{{ .Site.Params.AuthorGitlab }}">
+          <span class="sr-only sr-only-focusable">Gitlab</span>
           <i class="fab fa-gitlab"></i>
         </a>
       </li>
