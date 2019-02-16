@@ -1,0 +1,9 @@
+{
+  "name": "Jon Jaques",
+  "short_name": "Jon Jaques",
+  "orientation": "portrait",
+  "display": "standalone",
+  "start_url": ".",
+  "theme_color": "#221f33",
+  "background_color": "#221f33"
+}
